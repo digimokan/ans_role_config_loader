@@ -1,0 +1,7 @@
+- name: "Configure loader options"
+  ansible.builtin.include_tasks: config_options.yml
+
+- name: "Configure CPU microcode updates to load at boot"
+  ansible.builtin.include_tasks: config_cpu_ucode.yml
+  when: load_cpu_microcode_updates
+
