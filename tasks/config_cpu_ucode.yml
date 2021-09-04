@@ -14,6 +14,8 @@
   ansible.builtin.package:
     name: 'devcpu-data'
     state: present
+  become: true
+  become_user: root
 
 - name: "Set cpu-microcode to load at boot in {{ loader_conf_path }}"
   community.general.sysrc:
