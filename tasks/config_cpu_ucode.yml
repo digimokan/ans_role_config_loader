@@ -18,6 +18,7 @@
   become_user: root
 
 - name: "Set cpu-microcode to load at boot in {{ loader_conf_path }}"
+  # see https://www.freshports.org/sysutils/devcpu-data/
   community.general.sysrc:
     path: "{{ loader_conf_path }}"
     name: "cpu_microcode_load"
@@ -27,6 +28,7 @@
   become_user: root
 
 - name: "Set cpu-microcode type to '{{ cpu_type }}' in {{ loader_conf_path }}"
+  # see https://www.freshports.org/sysutils/devcpu-data/
   community.general.sysrc:
     path: "{{ loader_conf_path }}"
     name: "cpu_microcode_name"
