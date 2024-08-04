@@ -1,17 +1,17 @@
-- name: "Set bootloader menu timeout to {{ menu_timeout_seconds }} sec in {{ loader_conf_path }}"
+- name: "Set bootloader menu timeout to {{ loader_menu_timeout_seconds }} sec in {{ loader_conf_path }}"
   community.general.sysrc:
     path: "{{ loader_conf_path }}"
     name: "autoboot_delay"
-    value: "{{ menu_timeout_seconds }}"
+    value: "{{ loader_menu_timeout_seconds }}"
     state: present
   become: true
   become_user: root
 
-- name: "Set show-logo-next-to-bootloader-menu to '{{ show_loader_logo }}' in {{ loader_conf_path }}"
+- name: "Set show-logo-next-to-bootloader-menu to '{{ loader_show_logo }}' in {{ loader_conf_path }}"
   community.general.sysrc:
     path: "{{ loader_conf_path }}"
     name: "loader_logo"
-    value: "{{ 'orb' if show_loader_logo else 'none' }}"
+    value: "{{ 'orb' if loader_show_logo else 'none' }}"
     state: present
   become: true
   become_user: root

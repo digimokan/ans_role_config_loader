@@ -1,12 +1,15 @@
 # timeout delay for loader main menu (on timeout, default action is triggered)
-menu_timeout_seconds: "4"
+loader_menu_timeout_seconds: "4"
 
 # show an ASCII "orb" logo next to the loader main menu
-show_loader_logo: false
+loader_show_logo: false
 
 # install the intel/amd CPU microcode updates package, and load updates at boot
-load_cpu_microcode_updates: false
+loader_load_cpu_microcode_updates: false
 
 # path to loader.conf bootloader config file
 loader_conf_path: "/boot/loader.conf"
+
+# config file path for host info, network info, and services to start at boot
+loader_rc_conf_filepath: "/etc/rc.conf"
 
