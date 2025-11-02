@@ -4,6 +4,9 @@ loader_menu_timeout_seconds: "4"
 # install the intel/amd CPU microcode updates package, and load updates at boot
 loader_load_cpu_microcode_updates: false
 
+# Force monitor console-mode resolution (helps drm-kmod transition during boot)
+loader_monitor_console_resolution: "default"
+
 # path to loader.conf bootloader config file
 loader_conf_path: "/boot/loader.conf"
 

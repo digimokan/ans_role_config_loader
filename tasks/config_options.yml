@@ -7,3 +7,12 @@
   become: true
   become_user: root
 
+- name: "Set monitor resolution in console mode to {{ loader_monitor_console_resolution }} in {{ loader_conf_path }}"
+  community.general.sysrc:
+    path: "{{ loader_conf_path }}"
+    name: "kern.vt.fb.default_mode"
+    value: "{{ loader_monitor_console_resolution }}"
+    state: "{{ 'absent' if (loader_monitor_console_resolution == 'default') else 'present' }}"
+  become: true
+  become_user: root
+
