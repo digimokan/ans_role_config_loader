@@ -7,12 +7,16 @@
   become: true
   become_user: root
 
+# Use lineinfile, since sysrc module does not allow '.' in name field
 - name: "Set monitor resolution in console mode to {{ loader_monitor_console_resolution }} in {{ loader_conf_path }}"
-  community.general.sysrc:
+  ansible.builtin.lineinfile:
     path: "{{ loader_conf_path }}"
-    name: "kern.vt.fb.default_mode"
-    value: "{{ loader_monitor_console_resolution }}"
+    regexp: >-
+      ^kern.vt.fb.default_mode
+    line: >-
+      kern.vt.fb.default_mode="{{ loader_monitor_console_resolution }}"
     state: "{{ 'absent' if (loader_monitor_console_resolution == 'default') else 'present' }}"
+    create: false
   become: true
   become_user: root
 
