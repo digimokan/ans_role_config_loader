@@ -10,41 +10,49 @@
     msg: "CPU type not recognized as Intel or AMD"
   when: cpu_type == 'unknown'
 
-- name: "Install 'devcpu-data' CPU microcode updates package"
+- name: "{{ pkg_status }} 'devcpu-data' CPU microcode updates package"
   # Note: since FreeBSD 14.1, cpu-microcode pkg replaced devcpu-data pkg
   ansible.builtin.package:
     name: 'cpu-microcode'
-    state: present
+    state: "{{ 'present' if loader_load_cpu_microcode_updates else 'absent' }}"
+  vars:
+    pkg_status: "{{ 'Install' if loader_load_cpu_microcode_updates else 'Remove' }}"
   become: true
   become_user: root
 
-- name: "Set cpu-microcode type to '{{ cpu_type }}' in {{ loader_conf_path }}"
+- name: "{{ val_status }} cpu-microcode type of '{{ cpu_type }}' in {{ loader_conf_path }}"
   # see https://forum.opnsense.org/index.php?topic=36139.0
   community.general.sysrc:
     path: "{{ loader_conf_path }}"
     name: "cpu_microcode_name"
     value: "/boot/firmware/{{ cpu_type }}-ucode.bin"
-    state: present
+    state: "{{ 'present' if loader_load_cpu_microcode_updates else 'absent' }}"
+  vars:
+    val_status: "{{ 'Set' if loader_load_cpu_microcode_updates else 'Unset' }}"
   become: true
   become_user: root
 
-- name: "Set early-stage cpu-microcode loading (Intel) in {{ loader_conf_path }}"
+- name: "{{ val_status }} early-stage cpu-microcode loading (Intel) in {{ loader_conf_path }}"
   # see https://forum.opnsense.org/index.php?topic=36139.0
   community.general.sysrc:
     path: "{{ loader_conf_path }}"
     name: "cpu_microcode_load"
     value: "YES"
-    state: present
+    state: "{{ 'present' if loader_load_cpu_microcode_updates else 'absent' }}"
+  vars:
+    val_status: "{{ 'Set' if loader_load_cpu_microcode_updates else 'Unset' }}"
   become: true
   become_user: root
 
-- name: "Set late-stage cpu-microcode loading (AMD) in {{ loader_rc_conf_filepath }}"
+- name: "{{ val_status }} late-stage cpu-microcode loading (AMD) in {{ loader_rc_conf_filepath }}"
   # see https://forum.opnsense.org/index.php?topic=36139.0
   community.general.sysrc:
     path: "{{ loader_rc_conf_filepath }}"
     name: "microcode_update_enable"
     value: "YES"
-    state: present
+    state: "{{ 'present' if loader_load_cpu_microcode_updates else 'absent' }}"
+  vars:
+    val_status: "{{ 'Set' if loader_load_cpu_microcode_updates else 'Unset' }}"
   become: true
   become_user: root
 
