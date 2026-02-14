@@ -20,7 +20,8 @@
     path: "{{ loader_rc_conf_filepath }}"
     name: "{{ setting.nm }}"
     value: "{{ setting.val }}"
-    state: "{{ 'present' if setting.st else 'absent' }}"
+    # state: "{{ 'present' if setting.st else 'absent' }}"
+    state: "absent"
   loop:
     # Note: early-stage loading
     - { nm: "cpu_microcode_load", st: "{{ loader_load_cpu_microcode_updates and (loader_cpu_type == 'intel') }}",
