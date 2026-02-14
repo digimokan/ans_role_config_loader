@@ -18,19 +18,20 @@
   # see https://forum.opnsense.org/index.php?topic=36139.0
   community.general.sysrc:
     path: "{{ loader_rc_conf_filepath }}"
-    name: "{{ setting.nm }}"
-    value: "{{ setting.val }}"
+    name: "microcode_update_enable"
+    # value: "{{ setting.val }}"
+    value: "NO"
     # state: "{{ 'present' if setting.st else 'absent' }}"
     state: "absent"
-  loop:
-    # Note: early-stage loading
-    - { nm: "cpu_microcode_load", st: "{{ loader_load_cpu_microcode_updates and (loader_cpu_type == 'intel') }}",
-        val: "{{ 'YES' if loader_load_cpu_microcode_updates else 'NO' }}" }
-    # Note: late-stage loading
-    - { nm: "microcode_update_enable", st: "{{ loader_load_cpu_microcode_updates and (loader_cpu_type == 'amd') }}",
-        val: "{{ 'YES' if loader_load_cpu_microcode_updates else 'NO' }}" }
-  loop_control:
-    loop_var: setting
+  # loop:
+  #   # Note: early-stage loading
+  #   - { nm: "cpu_microcode_load", st: "{{ loader_load_cpu_microcode_updates and (loader_cpu_type == 'intel') }}",
+  #       val: "{{ 'YES' if loader_load_cpu_microcode_updates else 'NO' }}" }
+  #   # Note: late-stage loading
+  #   - { nm: "microcode_update_enable", st: "{{ loader_load_cpu_microcode_updates and (loader_cpu_type == 'amd') }}",
+  #       val: "{{ 'YES' if loader_load_cpu_microcode_updates else 'NO' }}" }
+  # loop_control:
+  #   loop_var: setting
   register: rc_conf_results
   become: true
   become_user: root
