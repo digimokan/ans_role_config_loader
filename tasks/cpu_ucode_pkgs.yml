@@ -1,4 +1,4 @@
-- name: "{{ pkg_status }} 'devcpu-data' CPU microcode updates package"
+- name: "{{ pkg_status }} 'cpu-microcode' CPU microcode updates package"
   # Note: since FreeBSD 14.1, cpu-microcode pkg replaced devcpu-data pkg
   ansible.builtin.package:
     name: 'cpu-microcode'
