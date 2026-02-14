@@ -20,7 +20,7 @@
     path: "{{ loader_rc_conf_filepath }}"
     name: "microcode_update_enable"
     # value: "{{ setting.val }}"
-    value: "NO"
+    # value: "NO"
     # state: "{{ 'present' if setting.st else 'absent' }}"
     state: "absent"
   # loop:
