@@ -19,7 +19,6 @@
   community.general.sysrc:
     path: "{{ loader_rc_conf_filepath }}"
     name: "{{ setting.nm }}"
-    # value: "{{ setting.val }}"
     value: "{{ setting.val if setting.st else omit }}"
     state: "{{ 'present' if setting.st else 'absent' }}"
   loop:
