@@ -51,8 +51,9 @@ Configure the FreeBSD _loader_ bootloader.
        - name: "Configure the FreeBSD 'loader' bootloader"
          ansible.builtin.include_role:
            name: ans_role_config_loader
+           public: true
          vars:
-           load_cpu_microcode_updates: true
+           loader_load_cpu_microcode_updates: true
    ```
 
 ## Role Options
@@ -60,6 +61,10 @@ Configure the FreeBSD _loader_ bootloader.
 Vars with default values, which can be overridden in the playbook:
 
   * [overridable](../defaults/main/overridable/main.yml)
+
+Vars defined by this role, exported with `public: true`, for use in other roles:
+
+  * [export](../defaults/main/export/main.yml)
 
 ## Contributing
 

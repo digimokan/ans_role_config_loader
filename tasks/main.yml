@@ -1,6 +1,12 @@
-- name: "Configure loader options"
-  ansible.builtin.include_tasks: config_options.yml
+- name: "Configure loader boot options"
+  ansible.builtin.include_tasks: boot_options.yml
 
-- name: "Configure loading of CPU microcode updates at boot"
-  ansible.builtin.include_tasks: config_cpu_ucode.yml
+- name: "Determine CPU type"
+  ansible.builtin.include_tasks: cpu_type.yml
+
+- name: "Install or remove CPU microcode packages"
+  ansible.builtin.include_tasks: cpu_ucode_pkgs.yml
+
+- name: "Configure CPU microcode settings"
+  ansible.builtin.include_tasks: cpu_ucode_settings.yml
 

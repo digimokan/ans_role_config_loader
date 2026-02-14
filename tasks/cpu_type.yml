@@ -1,0 +1,12 @@
+- name: "Determine CPU type (Intel/AMD), and set 'loader_cpu_type' play fact"
+  ansible.builtin.set_fact:
+    loader_cpu_type: "{{ 'amd' if amd_cpu|length > 0 else 'intel' if intel_cpu|length > 0 else 'unknown' }}"
+  vars:
+    intel_cpu: "{{ ansible_processor | select('match', 'Intel') | list }}"
+    amd_cpu: "{{ ansible_processor | select('match', 'AMD') | list }}"
+
+- name: "Abort role if CPU type not determined to be Intel or AMD"
+  ansible.builtin.fail:
+    msg: "CPU type not recognized as Intel or AMD"
+  when: loader_cpu_type == 'unknown'
+

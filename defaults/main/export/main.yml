@@ -1,0 +1,3 @@
+# will be set to 'true' if any task in this role requests a system reboot
+loader_requests_reboot: false
+
